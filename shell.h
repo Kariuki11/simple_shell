@@ -212,8 +212,8 @@ int build_history_list(info_f *info, char *buf, int linecount);
 int renumber_history(info_f *info);
 
 /* lists.c */
-list_t *add_node(list_f **, const char *, int);
-list_t *add_node_end(list_f **, const char *, int);
+list_f *add_node(list_f **, const char *, int);
+list_f *add_node_end(list_f **, const char *, int);
 size_t print_list_str(const list_f *);
 int delete_node_at_index(list_f **, unsigned int);
 void free_list(list_f **);
@@ -222,7 +222,7 @@ void free_list(list_f **);
 size_t list_len(const list_f *);
 char **list_to_strings(list_f *);
 size_t print_list(const list_f *);
-list_t *node_starts_with(list_f *, char *, char);
+list_f *node_starts_with(list_f *, char *, char);
 ssize_t get_node_index(list_f *, list_f *);
 
 /* vars.c */

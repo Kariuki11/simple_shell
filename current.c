@@ -12,7 +12,7 @@ void _eputs(char *str)
 
 	if (!str)
 		return;
-	while (str[i] != '\0')
+	while (str[j] != '\0')
 	{
 		_eputchar(str[j]);
 		j++;
@@ -60,7 +60,7 @@ int _putfd(char c, int fd)
 		j = 0;
 	}
 	if (c != BUF_FLUSH)
-		buf[i++] = c;
+		buf[j++] = c;
 	return (1);
 }
 
@@ -79,7 +79,8 @@ int _putsfd(char *str, int fd)
 		return (0);
 	while (*str)
 	{
-		i += _putfd(*str++, fd);
+		j += _putfd(*str++, fd);
 	}
 	return (i);
+
 }
