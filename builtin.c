@@ -1,92 +1,97 @@
 #include "shell.h"
 
 /**
- * _myenv - print the current environment
- * @info: Structure containing important arguments. Which are used to maintain
+ * _myexit - exits the shell
+ * @info: Structure containing potential arguments. Used to maintain
  *          constant function prototype.
- * Return: Always 0
+ *  Return: exits with a given exit status
+ *         (0) if info.argv[0] != "exit"
  */
-int _myenv(info_f *info)
+int _myexit(info_t *info)
 {
-	print_list_str(info->env);
+	int exitcheck;
+
+	if (info->argv[1])  /* If there is an exit arguement */
+	{
+		exitcheck = _erratoi(info->argv[1]);
+		if (exitcheck == -1)
+		{
+			info->status = 2;
+			print_error(info, "Illegal number: ");
+			_eputs(info->argv[1]);
+			_eputchar('\n');
+			return (1);
+		}
+		info->err_num = _erratoi(info->argv[1]);
+		return (-2);
+	}
+	info->err_num = -1;
+	return (-2);
+}
+
+/**
+ * _mycd - changes the current directory of the process
+ * @info: Structure containing potential arguments. Used to maintain
+ *          constant function prototype.
+ *  Return: Always 0
+ */
+int _mycd(info_t *info)
+{
+	char *s, *dir, buffer[1024];
+	int chdir_ret;
+
+	s = getcwd(buffer, 1024);
+	if (!s)
+		_puts("TODO: >>getcwd failure emsg here<<\n");
+	if (!info->argv[1])
+	{
+		dir = _getenv(info, "HOME=");
+		if (!dir)
+			chdir_ret = /* TODO: what should this be? */
+				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+		else
+			chdir_ret = chdir(dir);
+	}
+	else if (_strcmp(info->argv[1], "-") == 0)
+	{
+		if (!_getenv(info, "OLDPWD="))
+		{
+			_puts(s);
+			_putchar('\n');
+			return (1);
+		}
+		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
+		chdir_ret = /* TODO: what should this be? */
+			chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
+	}
+	else
+		chdir_ret = chdir(info->argv[1]);
+	if (chdir_ret == -1)
+	{
+		print_error(info, "can't cd to ");
+		_eputs(info->argv[1]), _eputchar('\n');
+	}
+	else
+	{
+		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
+		_setenv(info, "PWD", getcwd(buffer, 1024));
+	}
 	return (0);
 }
 
 /**
- * _getenv - get value of the environ variable.
- * @info: Structure contains important arguments. Which are used to maintain constant var
- * @name: envi var name
- *
- * Return: the value
- */
-char *_getenv(info_f *info, const char *name)
-{
-	list_f *node = info->env;
-	char *c;
-
-	while (node)
-	{
-		c = starts_with(node->str, name);
-		if (c && *c)
-			return (c);
-		node = node->next;
-	}
-	return (NULL);
-}
-
-/**
- * _mysetenv - Initializes the new environment variable,
- *             or modify existing ones
- * @info: Structure containing important arguments. Which are used to maintain
- *        constant function prototype.
- *  Return: Always 0
- */
-int _mysetenv(info_f *info)
-{
-	if (info->argc != 3)
-	{
-		_eputs("Incorrect number of arguements\n");
-		return (1);
-	}
-	if (_setenv(info, info->argv[1], info->argv[2]))
-		return (0);
-	return (1);
-}
-
-/**
- * _myunsetenv - Remove environment variable
- * @info: Structure containing important arguments. Which are used to maintain
- *        constant function prototype.
- *  Return: Always 0
- */
-int _myunsetenv(info_f *info)
-{
-	int j;
-
-	if (info->argc == 1)
-	{
-		_eputs("Too few arguements.\n");
-		return (1);
-	}
-	for (j = 1; j <= info->argc; j++)
-		_unsetenv(info, info->argv[i]);
-
-	return (0);
-}
-
-/**
- * populate_env_list - populate env linked list
- * @info: Structure containing important arguments. Which are used to maintain
+ * _myhelp - changes the current directory of the process
+ * @info: Structure containing potential arguments. Used to maintain
  *          constant function prototype.
- * Return: Always 0
+ *  Return: Always 0
  */
-int populate_env_list(info_f *info)
+int _myhelp(info_t *info)
 {
-	list_f *node = NULL;
-	size_t j;
+	char **arg_array;
 
-	for (j = 0; environ[j]; j++)
-		add_node_end(&node, environ[j], 0);
-	info->env = node;
+	arg_array = info->argv;
+	_puts("help call works. Function not yet implemented \n");
+	if (0)
+		_puts(*arg_array); /* temp att_unused workaround */
 	return (0);
 }

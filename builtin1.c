@@ -1,26 +1,26 @@
 #include "shell.h"
 
 /**
- * _myhistory -it display the history list, one command by line, preeceded
- *              with the line numbers, starting at 0.
- * @info: Structure containing important arguments.Which are used to maintain
+ * _myhistory - displays the history list, one command by line, preceded
+ *              with line numbers, starting at 0.
+ * @info: Structure containing potential arguments. Used to maintain
  *        constant function prototype.
  *  Return: Always 0
  */
-int _myhistories(info_f *info)
+int _myhistory(info_t *info)
 {
 	print_list(info->history);
 	return (0);
 }
 
 /**
- * unset_alias - set the alias to strings
+ * unset_alias - sets alias to string
  * @info: parameter struct
  * @str: the string alias
  *
  * Return: Always 0 on success, 1 on error
  */
-int unset_alias(info_f *info, char *str)
+int unset_alias(info_t *info, char *str)
 {
 	char *p, c;
 	int ret;
@@ -37,13 +37,13 @@ int unset_alias(info_f *info, char *str)
 }
 
 /**
- * set_alias - set the alias to string
+ * set_alias - sets alias to string
  * @info: parameter struct
- * @str: the strings alias
+ * @str: the string alias
  *
  * Return: Always 0 on success, 1 on error
  */
-int set_alias(info_f *info, char *str)
+int set_alias(info_t *info, char *str)
 {
 	char *p;
 
@@ -58,12 +58,12 @@ int set_alias(info_f *info, char *str)
 }
 
 /**
- * print_alias - prints the alias to string
+ * print_alias - prints an alias string
  * @node: the alias node
  *
  * Return: Always 0 on success, 1 on error
  */
-int print_alias(list_f *node)
+int print_alias(list_t *node)
 {
 	char *p = NULL, *a = NULL;
 
@@ -81,16 +81,16 @@ int print_alias(list_f *node)
 }
 
 /**
- * _myalias - mimics alias builtin (man alias)
- * @info: Structure contains important arguments.Which are used to maintain
+ * _myalias - mimics the alias builtin (man alias)
+ * @info: Structure containing potential arguments. Used to maintain
  *          constant function prototype.
  *  Return: Always 0
  */
-int _myalias(info_f *info)
+int _myalias(info_t *info)
 {
 	int i = 0;
 	char *p = NULL;
-	list_f *node = NULL;
+	list_t *node = NULL;
 
 	if (info->argc == 1)
 	{
