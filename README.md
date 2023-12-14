@@ -1,1 +1,1 @@
-The simple shell project
+The sgell basics project
