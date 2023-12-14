@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * main - entry point
+ * main - entry points
  * @ac: arg count
  * @av: arg vector
  *
@@ -9,7 +9,7 @@
  */
 int main(int ac, char **av)
 {
-	info_t info[] = { INFO_INIT };
+	info_f info[] = { INFO_INIT };
 	int fd = 2;
 
 	asm ("mov %1, %0\n\t"
@@ -27,7 +27,7 @@ int main(int ac, char **av)
 			if (errno == ENOENT)
 			{
 				_eputs(av[0]);
-				_eputs(": 0: Can't open ");
+				_eputs(": 0: Canot open ");
 				_eputs(av[1]);
 				_eputchar('\n');
 				_eputchar(BUF_FLUSH);

@@ -7,7 +7,7 @@
  *
  * Return: 0 on success, 1 on error, or error code
  */
-int hsh(info_t *info, char **av)
+int hsh(info_f *info, char **av)
 {
 	ssize_t r = 0;
 	int builtin_ret = 0;
@@ -44,15 +44,15 @@ int hsh(info_t *info, char **av)
 }
 
 /**
- * find_builtin - finds a builtin command
+ * find_builtin - find a builtin command
  * @info: the parameter & return info struct
  *
  * Return: -1 if builtin not found,
- *			0 if builtin executed successfully,
+ *			0 if builtin executted successfully,
  *			1 if builtin found but not successful,
  *			-2 if builtin signals exit()
  */
-int find_builtin(info_t *info)
+int find_builtin(info_f *info)
 {
 	int i, built_in_ret = -1;
 	builtin_table builtintbl[] = {
@@ -77,12 +77,12 @@ int find_builtin(info_t *info)
 }
 
 /**
- * find_cmd - finds a command in PATH
+ * find_cmd - find a command in PATH
  * @info: the parameter & return info struct
  *
  * Return: void
  */
-void find_cmd(info_t *info)
+void find_cmd(info_f *info)
 {
 	char *path = NULL;
 	int i, k;
@@ -118,21 +118,21 @@ void find_cmd(info_t *info)
 }
 
 /**
- * fork_cmd - forks a an exec thread to run cmd
+ * fork_cmd - forks an exec thread to run cmd
  * @info: the parameter & return info struct
  *
  * Return: void
  */
 
 /**
- * Fork system call is used for creating a new process, which is called child process,
+ * Fork system call is used for creating new process, which is child process,
  *  which runs concurrently with the process that makes the fork() call (parent process).
  *  After a new child process is created,
- * both processes will execute the next instruction following the fork() system call.
+ * both processes will execute next instruction following the fork() system call.
  *  A child process uses the same pc(program counter),
  * same CPU registers, same open files which use in the parent process.
  */
-void fork_cmd(info_t *info)
+void fork_cmd(info_f *info)
 {
 	pid_t child_pid;
 
