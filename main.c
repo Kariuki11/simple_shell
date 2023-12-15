@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * main - entry points
+ * main - entry point
  * @ac: arg count
  * @av: arg vector
  *

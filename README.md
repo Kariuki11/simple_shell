@@ -1,1 +1,1 @@
-The sgell basics project
+s is the simple shell project

@@ -8,14 +8,14 @@
  */
 size_t list_len(const list_t *h)
 {
-	size_t x = 0;
+	size_t i = 0;
 
 	while (h)
 	{
 		h = h->next;
-		x++;
+		i++;
 	}
-	return (x);
+	return (i);
 }
 
 /**
@@ -27,30 +27,30 @@ size_t list_len(const list_t *h)
 char **list_to_strings(list_t *head)
 {
 	list_t *node = head;
-	size_t x = list_len(head), j;
+	size_t i = list_len(head), j;
 	char **strs;
 	char *str;
 
 	if (!head || !i)
 		return (NULL);
-	strs = malloc(sizeof(char *) * (x + 1));
+	strs = malloc(sizeof(char *) * (i + 1));
 	if (!strs)
 		return (NULL);
-	for (x = 0; node; node = node->next, x++)
+	for (i = 0; node; node = node->next, i++)
 	{
 		str = malloc(_strlen(node->str) + 1);
 		if (!str)
 		{
-			for (j = 0; j < x; j++)
+			for (j = 0; j < i; j++)
 				free(strs[j]);
 			free(strs);
 			return (NULL);
 		}
 
 		str = _strcpy(str, node->str);
-		strs[x] = str;
+		strs[i] = str;
 	}
-	strs[x] = NULL;
+	strs[i] = NULL;
 	return (strs);
 }
 
@@ -63,7 +63,7 @@ char **list_to_strings(list_t *head)
  */
 size_t print_list(const list_t *h)
 {
-	size_t x = 0;
+	size_t i = 0;
 
 	while (h)
 	{
@@ -73,9 +73,9 @@ size_t print_list(const list_t *h)
 		_puts(h->str ? h->str : "(nil)");
 		_puts("\n");
 		h = h->next;
-		x++;
+		i++;
 	}
-	return (x);
+	return (i);
 }
 
 /**
@@ -109,14 +109,14 @@ list_t *node_starts_with(list_t *node, char *prefix, char c)
  */
 ssize_t get_node_index(list_t *head, list_t *node)
 {
-	size_t x = 0;
+	size_t i = 0;
 
 	while (head)
 	{
 		if (head == node)
-			return (x);
+			return (i);
 		head = head->next;
-		x++;
+		i++;
 	}
 	return (-1);
 }
